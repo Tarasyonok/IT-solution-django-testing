@@ -3,18 +3,23 @@ import numpy as np
 from PIL import ImageFont, ImageDraw, Image
 
 
-def create_running_text_video(text):
+def create_running_text_video(
+        text,
+        width=100,
+        height=100,
+        duration=3,
+        text_color="#ffffff",
+        background_color="#0000ff",
+        font_size=40,
+):
+    # переворот цвета
+    text_color = "#" + text_color[5:7] + text_color[3:5] + text_color[1:3]
+    background_color = "#" + background_color[5:7] + background_color[3:5] + background_color[1:3]
     # Настройки видео
-    width = 100
-    height = 100
-    duration = 3
-    FPS = 24
+    FPS = 50
 
     # Настройки текста
-    text_color = "#ffffff"
-    background_color = "#0000ff"
-    font_size = 40
-    font = ImageFont.load_default(font_size)
+    font = ImageFont.truetype("arial.ttf", size=font_size)
     text_width = font.getbbox(text)[2]
     text_speed = (width + text_width) / FPS / duration
     x, y = width, height // 2
